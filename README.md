@@ -9,12 +9,15 @@
 ### 飞书机器人的创建
 - - -
 * 1、访问开发者后台，创建一个机器人的应用，获取APPID和Secret 
-![图片]()
+![图片](https://github.com/JXiuFen/feishu_bot/blob/main/picgo/20240715143151.png)
 * 2、开启机器人能力
-![图片]()
-* 3、开启权限并配置事件
-![图片]()
-* 4、发布版本，等待审核
+![图片](https://github.com/JXiuFen/feishu_bot/blob/main/picgo/20240715143321.png)
+* 3、开启权限
+![图片](https://github.com/JXiuFen/feishu_bot/blob/main/picgo/20240715143419.png)
+* 4、配置事件
+![图片](https://github.com/JXiuFen/feishu_bot/blob/main/picgo/20240715143655.png)
+* 5、发布版本，等待审核
+![图片](https://github.com/JXiuFen/feishu_bot/blob/main/picgo/20240715144907.png)
 
 
 ### 项目部署
@@ -33,7 +36,7 @@
 > BOT_NAME   *#飞书机器人名称*<br>
 > BOT_NAME   *#飞书机器人名称*<br>
 
-![图片]()
+![图片](https://github.com/JXiuFen/feishu_bot/blob/main/picgo/20240715150225.png)
 
 ### FAQ
 - - -
