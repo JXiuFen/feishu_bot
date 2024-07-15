@@ -3,8 +3,8 @@
 > 飞书机器人对接GPT，群聊和私聊都可以使用
 ### 效果演示
 - - -
-![图片](https://github.com/JXiuFen/feishu_bot/picgo/20240715142302.png)
-![图片](https://github.com/JXiuFen/feishu_bot/picgo/20240715142321.png)
+![图片](https://github.com/JXiuFen/feishu_bot/blob/main/picgo/20240715142302.png)
+![图片](https://github.com/JXiuFen/feishu_bot/blob/main/picgo/20240715142321.png)
 
 ### 飞书机器人的创建
 - - -
