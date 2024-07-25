@@ -11,7 +11,7 @@ class FeiShu:
         self._constructor()
 
     def _constructor(self):
-        self.client = lark.Client.builder().app_id(self.APP_ID).app_secret(self.APP_SECRET).log_level(lark.LogLevel.DEBUG).build()
+        self.client = lark.Client.builder().app_id(self.APP_ID).app_secret(self.APP_SECRET).log_level(lark.LogLevel.INFO).build()
 
     def assembly_message(self, open_id, message, chat_type='p2p'):
         message_content = {

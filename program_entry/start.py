@@ -1,9 +1,7 @@
 import json
 import lark_oapi as lark
 from lark_oapi.api.im.v1 import P2ImMessageReceiveV1
-from tools.DBClass import SqliteDB
-from tools.FeiShuClass import FeiShu
-from program_entry.azure_openai import Chat
+from program_entry import FeiShu, SqliteDB, Chat
 from program_entry.config import *
 
 db = SqliteDB(FILE_PATH)
@@ -35,18 +33,23 @@ def do_p2_im_message_receive_v1(data: P2ImMessageReceiveV1) -> None:
         sender_id = event_sender_sender_id.get('user_id')
 
         if message_type != 'text':
-            fs.reply_message(message_id, open_id, '目前仅支持文字聊天')
+            fs.reply_message(message_id, open_id, '目前仅支持文字聊天，暂不支持其他类型的提问')
         elif chat_type == 'group' and (not mentions or mentions[0].get('name') != BOT_NAME):    # 判断是群聊还是私聊
-            fs.reply_message(message_id, open_id, '请@机器人，进行聊天')
+            # fs.reply_message(message_id, open_id, '请@机器人，进行聊天')
+            pass
         else:
-            Chat_obj = Chat('gpt-3.5',
-                            AZURE_API_KEY,
-                            AZURE_API_VERSION,
-                            AZURE_ENDPOINT,
-                            AZURE_DEPLOYMENT,
-                            MODEL,
-                            SESSION_ID=f'{chat_id}{sender_id}')
-            result = Chat_obj.talk(content)
+            try:
+                Chat_obj = Chat('gpt-3.5',
+                                AZURE_API_KEY,
+                                AZURE_API_VERSION,
+                                AZURE_ENDPOINT,
+                                AZURE_DEPLOYMENT,
+                                MODEL,
+                                SESSION_ID=f'{chat_id}{sender_id}')
+                result = Chat_obj.talk(content)
+            except Exception as e:
+                lark.logger.info(e)
+                result = '问题太多了，我有点眩晕，请稍后再试！'
             fs.reply_message(message_id, open_id, result, chat_type)
 
 
@@ -60,7 +63,7 @@ def program_entry():
     handler = lark.EventDispatcherHandler.builder(
         lark.ENCRYPT_KEY,
         lark.VERIFICATION_TOKEN,
-        lark.LogLevel.DEBUG
+        lark.LogLevel.INFO
     ).register_p2_im_message_receive_v1(do_p2_im_message_receive_v1).register_p1_customized_event(
         "message",
         do_customized_event
@@ -69,7 +72,7 @@ def program_entry():
         APP_ID,
         APP_SECRET,
         event_handler=handler,
-        log_level=lark.LogLevel.DEBUG)
+        log_level=lark.LogLevel.INFO)
     cli.start()
 
 

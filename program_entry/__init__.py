@@ -1,7 +1,10 @@
 import sys
 
+from tools.AzureClass import ChatRobot
+from tools.FeiShuClass import FeiShu
 from tools.DBClass import SqliteDB
-from program_entry.config import *
+from .azure_openai import Chat
+from .config import *
 
 
 if status != 0:

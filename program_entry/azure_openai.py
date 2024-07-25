@@ -1,7 +1,6 @@
 from typing import Optional
 
-from tools.DBClass import SqliteDB
-from tools.AzureClass import ChatRobot
+from program_entry import SqliteDB, ChatRobot
 from program_entry.config import *
 
 
@@ -82,7 +81,7 @@ class Chat(ChatRobot):
             result, token = self.completions_no_stream(messages=self.history_list)
         except Exception as e:
             print(f"open ai talk error:{e}")
-            return ''
+            return '问题太多了，我有点眩晕，请稍后再试！'
         self._save_msgs({"question": content, "answer": result, "token": token})
         return result
 

@@ -1,5 +1,9 @@
 from program_entry import start
 
-start.program_entry()
+try:
+    start.program_entry()
+except KeyboardInterrupt:
+    print('程序结束...')
+
 
 # nohup python main.py > output.log 2>&1 &

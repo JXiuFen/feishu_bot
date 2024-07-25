@@ -31,7 +31,7 @@ class SqliteDB:
         """
         where_str = f"where {kwargs['where']}" if kwargs.get('where', '') else ''
         sql = f"delete from {table_name} {where_str}"
-        print(sql)
+        # print(sql)
         try:
             self.cursor.execute(sql)    # 执行SQL语句
             self.conn.commit()  # 提交到数据库执行
@@ -55,7 +55,7 @@ class SqliteDB:
             values_list.append(str(v))
             symbol_list.append('?')
         sql = f"insert into {table_name} ({','.join(fields_list)}) values ({','.join(symbol_list)})"
-        print(sql)
+        # print(sql)
         res = 0
         try:
             self.cursor.execute(sql, tuple(values_list))  # 执行SQL语句
@@ -80,7 +80,7 @@ class SqliteDB:
             update_list.append(f"{k}=?")
             values_list.append(v)
         sql = f'update {table_name} set {",".join(update_list)} where {where}'
-        print(sql)
+        # print(sql)
         rowcount = 0
         try:
             self.cursor.execute(sql, tuple(values_list))  # 执行SQL语句
@@ -102,7 +102,7 @@ class SqliteDB:
         where = f"where {kwargs['where']}" if kwargs.get('where', '') else ''
         order = f"order by {kwargs['order']}" if kwargs.get('order', '') else ''
         sql = f'select {field} from {table_name} {where} {order}'
-        print(sql)
+        # print(sql)
         data = []
         try:
             self.cursor.execute(sql)        # 执行SQL语句
@@ -123,7 +123,7 @@ class SqliteDB:
         where = f"where {kwargs['where']}" if kwargs.get('where', '') else ''
         order = f"order by {kwargs['order']}" if kwargs.get('order', '') else ''
         sql = f'select {field} from {table_name} {where} {order}'
-        print(sql)
+        # print(sql)
         data = []
         try:
             self.cursor.execute(sql)    # 执行SQL语句
