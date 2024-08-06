@@ -45,7 +45,7 @@ class ChatRobot(object):
             yield result_string
         except Exception as e:
             print('AzureChatRobot completions_stream', e)
-            return ''
+            raise
 
     def completions_no_stream(self, messages: Optional[list]) -> tuple:
         """
@@ -60,10 +60,9 @@ class ChatRobot(object):
                 temperature=self.TEMPERATURE,
                 max_tokens=self.MAX_TOKENS
             )
-
             if chat_completion:
                 if chat_completion.choices[0].message.content:
-                    return chat_completion.choices[0].message.content.replace("\n\n", ""), chat_completion.usage.total_tokens
+                    return chat_completion.choices[0].message.content.replace("\n\n", ""), chat_completion.usage
         except Exception as e:
             print('AzureChatRobot completions_no_stream', e)
-            return '', 0
+            raise

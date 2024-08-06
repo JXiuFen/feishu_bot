@@ -42,7 +42,7 @@ class Chat(ChatRobot):
             table_name="tb_msg",
             field=['question', 'answer'],
             where=f"session_id='{self.SESSION_ID}'",
-            order="id desc limit 10"
+            order="id desc limit 5"
         )
         if query_obj:
             for item in query_obj[::-1]:
@@ -60,7 +60,9 @@ class Chat(ChatRobot):
                 session_id=self.SESSION_ID,
                 question=data['question'],
                 answer=data['answer'],
-                token=data['token']
+                input_token=data['input_token'],
+                output_token=data['output_token'],
+                token=data['token'],
             )
 
     def _delete_msgs(self) -> None:
@@ -78,11 +80,18 @@ class Chat(ChatRobot):
         """
         try:
             self.history_list.append({"role": "user", "content": content})
-            result, token = self.completions_no_stream(messages=self.history_list)
+            result, completion_usage_obj = self.completions_no_stream(messages=self.history_list)
         except Exception as e:
             print(f"open ai talk error:{e}")
             return '问题太多了，我有点眩晕，请稍后再试！'
-        self._save_msgs({"question": content, "answer": result, "token": token})
+        self._save_msgs(
+            {
+                "question": content,
+                "answer": result,
+                "token": completion_usage_obj.total_tokens,
+                "input_token": completion_usage_obj.prompt_tokens,
+                "output_token": completion_usage_obj.completion_tokens,
+            })
         return result
 
 

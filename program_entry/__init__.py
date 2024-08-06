@@ -19,6 +19,8 @@ tb_msg_sql = """CREATE TABLE IF NOT EXISTS tb_msg(
         question TEXT,
         answer TEXT,
         token INTEGER,
+        input_token INTEGER,
+        output_token INTEGER,
         create_time TIMESTAMP DEFAULT (datetime('now','localtime'))
       )
     """
